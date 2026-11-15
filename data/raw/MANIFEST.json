@@ -1,0 +1,65 @@
+{
+  "eia_RCLC1d.xls": {
+    "url": "https://www.eia.gov/dnav/pet/hist_xls/RCLC1d.xls",
+    "description": "NYMEX WTI futures, contract 1, daily settle (USD/bbl)",
+    "retrieved_utc": "2026-11-15T12:46:41+00:00",
+    "bytes": 494592,
+    "sha256": "021180c292ab61e1a7920f88b02c53d7c397355848b5dcc01544efbba666d399"
+  },
+  "eia_RCLC2d.xls": {
+    "url": "https://www.eia.gov/dnav/pet/hist_xls/RCLC2d.xls",
+    "description": "NYMEX WTI futures, contract 2, daily settle (USD/bbl)",
+    "retrieved_utc": "2026-11-15T12:46:42+00:00",
+    "bytes": 468480,
+    "sha256": "dc8fd7856e081759d1cb3b5d078773b4fcf4d20ef9ec4539445f3b78ec55291d"
+  },
+  "eia_RCLC3d.xls": {
+    "url": "https://www.eia.gov/dnav/pet/hist_xls/RCLC3d.xls",
+    "description": "NYMEX WTI futures, contract 3, daily settle (USD/bbl)",
+    "retrieved_utc": "2026-11-15T12:46:42+00:00",
+    "bytes": 496640,
+    "sha256": "249839d65d6d8b2248fee9b4cd175079b83c8a5ee12a30a56c7fdffd49ec64e7"
+  },
+  "eia_RCLC4d.xls": {
+    "url": "https://www.eia.gov/dnav/pet/hist_xls/RCLC4d.xls",
+    "description": "NYMEX WTI futures, contract 4, daily settle (USD/bbl)",
+    "retrieved_utc": "2026-11-15T12:46:42+00:00",
+    "bytes": 466944,
+    "sha256": "c57062b380776b44e59b2c30cf7dee3c1439426aa1da967363ed25b75dba8097"
+  },
+  "eia_RWTCd.xls": {
+    "url": "https://www.eia.gov/dnav/pet/hist_xls/RWTCd.xls",
+    "description": "WTI spot price, Cushing, daily (USD/bbl)",
+    "retrieved_utc": "2026-11-15T12:46:43+00:00",
+    "bytes": 472064,
+    "sha256": "97903eda6ea27179de72481058755a219d714130f6e746ac480da80f3084e191"
+  },
+  "eia_WCESTUS1w.xls": {
+    "url": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls",
+    "description": "US crude oil ending stocks excl. SPR, weekly (kbbl)",
+    "retrieved_utc": "2026-11-15T12:46:43+00:00",
+    "bytes": 130048,
+    "sha256": "1841caa0cc6f61365d0b1435b9ed90e1421cca42c4f6267585e56856b79451ba"
+  },
+  "eia_cushing_stocks_w.xls": {
+    "url": "https://www.eia.gov/dnav/pet/hist_xls/W_EPC0_SAX_YCUOK_MBBLw.xls",
+    "description": "Cushing crude oil ending stocks excl. SPR, weekly (kbbl)",
+    "retrieved_utc": "2026-11-15T12:46:43+00:00",
+    "bytes": 80384,
+    "sha256": "7dbe4f72766dfe8a41e736912b8e29edb04fffa725dc318d16ee9f227d2062e8"
+  },
+  "fred_DTB3.csv": {
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTB3",
+    "description": "3-month T-bill, secondary market, daily (% p.a.)",
+    "retrieved_utc": "2026-11-15T12:49:30+00:00",
+    "bytes": 301677,
+    "sha256": "e348dc53e133a85ba6f1ae3b3106fc91a101e9d380527d9cd6d223d0639ee185"
+  },
+  "fred_OVXCLS.csv": {
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=OVXCLS",
+    "description": "CBOE crude oil ETF volatility index, daily",
+    "retrieved_utc": "2026-11-15T12:50:29+00:00",
+    "bytes": 85724,
+    "sha256": "0ddd2b2d58011db44b8447f8ddf4d876e4fdea599b13dbf4801c34c0a5f1402d"
+  }
+}
