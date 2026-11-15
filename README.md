@@ -85,4 +85,4 @@ tests/                   unit tests, including look-ahead checks
 
 ## Team
 
-Team Backwardation: Lukas Lobnig, Adrian Rupp, Noemi Pirrello
+Team Backwardation: Lukas Lobnig, Niklas Omann, Noemi Pirrello, Adrian Rupp
