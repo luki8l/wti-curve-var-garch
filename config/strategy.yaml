@@ -16,7 +16,7 @@ inventory:
   release_lag_days: 6           # week ending Friday is used from the following Thursday
 
 garch:
-  spec: "EGARCH-t"              # lowest BIC among 5 candidates on 1986-2009 daily returns
+  spec: "EGARCH-t"              # lowest BIC among 5 candidates on 1985-2009 daily returns
   start: "1995-01-02"           # first forecast after 10 years of data
   refit_every: 21               # re-estimate monthly, filter daily in between
 
@@ -28,7 +28,7 @@ var:
   window: null                  # expanding
 
 sizing:
-  target_vol: 0.35              # benchmark realised volatility 1986-2009 (37%), rounded
+  target_vol: 0.35              # benchmark realised volatility 1985-2009 (36.5%), rounded down
   max_leverage: 2.0             # notional cap, multiple of capital
 
 execution:

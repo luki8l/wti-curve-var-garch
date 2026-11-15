@@ -60,6 +60,32 @@ def deflated_sharpe(excess: pd.Series, trial_sharpes: np.ndarray) -> dict:
     }
 
 
+def bootstrap_sharpe(excess: pd.Series, bench: pd.Series, block: int = 21, reps: int = 2000, seed: int = 11) -> dict:
+    """Stationary-bootstrap distribution of the Sharpe ratio and of its difference to a benchmark.
+
+    Resampling blocks of days (mean length `block`) keeps volatility clustering intact.
+    """
+    from arch.bootstrap import StationaryBootstrap
+
+    data = pd.concat([excess, bench], axis=1).dropna().to_numpy()
+    boot = StationaryBootstrap(block, data, seed=seed)
+
+    def stat(x: np.ndarray) -> np.ndarray:
+        sr = x.mean(axis=0) / x.std(axis=0, ddof=1) * np.sqrt(DAYS)
+        return np.array([sr[0], sr[0] - sr[1]])
+
+    draws = np.array([stat(pos[0]) for pos, _ in boot.bootstrap(reps)])
+    point = stat(data)
+    return {
+        "sharpe": float(point[0]),
+        "sharpe_ci90": [float(v) for v in np.quantile(draws[:, 0], [0.05, 0.95])],
+        "p_sharpe_le0": float((draws[:, 0] <= 0).mean()),
+        "diff": float(point[1]),
+        "diff_ci90": [float(v) for v in np.quantile(draws[:, 1], [0.05, 0.95])],
+        "p_diff_le0": float((draws[:, 1] <= 0).mean()),
+    }
+
+
 def alpha_beta(excess: pd.Series, bench_excess: pd.Series, lags: int = 5) -> dict:
     data = pd.concat([excess, bench_excess], axis=1).dropna()
     res = sm.OLS(data.iloc[:, 0], sm.add_constant(data.iloc[:, 1])).fit(cov_type="HAC", cov_kwds={"maxlags": lags})

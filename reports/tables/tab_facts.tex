@@ -1,0 +1,14 @@
+\begin{tabular}{@{}llrrl@{}}
+\toprule
+Stylized fact (Cont 2001) & Statistic & 1985--2009 & 2010--2024 & Model consequence \\
+\midrule
+Absence of autocorrelation & $\rho_1(r)$; Ljung--Box(10) $p$ & 0.002; 0.014 & \textminus 0.037; $<$0.001 & constant mean \\
+Heavy tails & excess kurtosis; Jarque--Bera $p$ & 16.5; $<$0.001 & 77.3; $<$0.001 & Student-$t$ errors \\
+Gain/loss asymmetry & skewness & \textminus 0.99 & \textminus 3.56 & tail risk in ES \\
+Aggregational Gaussianity & excess kurtosis, weekly / monthly & 4.7 / 2.4 & 21.7 / 9.8 & weekly VAR \\
+Volatility clustering & $\rho_1(|r|)$; ARCH-LM(10) $p$ & 0.20; $<$0.001 & 0.36; $<$0.001 & GARCH sizing \\
+Slow decay of $|r|$ autocorrelation & $\rho_{50}(|r|)$ / $\rho_{100}(|r|)$ & 0.13 / 0.06 & 0.03 / 0.02 & persistence near 1 \\
+Conditional heavy tails & excess kurtosis of GARCH-N residuals & 2.2 & 3.0 & $t$ beyond GARCH \\
+Leverage effect & corr$(r_t, |r_{t+1}|)$ & \textminus 0.058 & \textminus 0.169 & asymmetric term \\
+\bottomrule
+\end{tabular}

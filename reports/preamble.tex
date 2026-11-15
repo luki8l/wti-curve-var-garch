@@ -1,0 +1,29 @@
+% Shared layout for report and factsheet (pdflatex, standard TeX Live / Overleaf packages)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[sc]{mathpazo}
+\usepackage[scaled=0.9]{helvet}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{accent}{HTML}{1C5CAB}
+\definecolor{muted}{HTML}{52514E}
+\definecolor{rulegrey}{HTML}{C9C8C3}
+\definecolor{panel}{HTML}{F3F2EE}
+
+\newcommand{\TeamName}{[Team name]}
+\newcommand{\TeamMembers}{[Member 1], [Member 2], [Member 3], [Member 4]}
+\newcommand{\ProjectTitle}{Earning the Roll}
+\newcommand{\ProjectSubtitle}{A volatility-targeted carry strategy for WTI crude oil futures}
+
+\input{tables/numbers.tex}

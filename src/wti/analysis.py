@@ -361,11 +361,21 @@ def multiple_testing(bts: dict, summary: dict, robust: pd.DataFrame, cfg: dict) 
     for i, name in enumerate(order):
         running = max(running, min(1.0, (len(order) - i) * pvals[name]))
         holm[name] = running
+    oos_main = period(bts[MAIN], cfg["periods"]["oos"])["excess"]
+    oos_bench = period(bts["benchmark"], cfg["periods"]["oos"])["excess"]
     return {
         "dsr_validation": metrics.deflated_sharpe(val, trials),
         "pvalues_oos": pvals,
         "holm_oos": holm,
+        "bootstrap_oos": metrics.bootstrap_sharpe(oos_main, oos_bench),
     }
+
+
+def subperiods(bts: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    spans = {"2010-2014": ("2010", "2014"), "2015-2019": ("2015", "2019"), "2020-2024": ("2020", "2024")}
+    return pd.DataFrame(
+        {label: {n: metrics.sharpe(bt.loc[a:b, "excess"]) for n, bt in bts.items()} for label, (a, b) in spans.items()}
+    )
 
 
 def main() -> None:
@@ -375,13 +385,11 @@ def main() -> None:
     print(f"daily obs {len(inp.daily)}, weekly obs {len(inp.panel)}, rolls {len(inp.rolls)}")
     facts = pd.DataFrame(
         {
-            "In-sample 1986-2009": stylized.facts(
-                100 * inp.rolled["logret"].loc["1986" : cfg["sample"]["in_sample_end"]]
-            ),
+            "In-sample 1985-2009": stylized.facts(100 * inp.rolled["logret"].loc[: cfg["sample"]["in_sample_end"]]),
             "Out-of-sample 2010-2024": stylized.facts(100 * inp.rolled["logret"].loc[cfg["sample"]["oos_start"] :]),
         }
     )
-    acfs = stylized.acf_table(100 * inp.rolled["logret"].loc["1986" : cfg["sample"]["in_sample_end"]])
+    acfs = stylized.acf_table(100 * inp.rolled["logret"].loc[: cfg["sample"]["in_sample_end"]])
     vol = volatility(inp, cfg)
     print("volatility done")
     var_res = var_analysis(inp, cfg)
@@ -402,6 +410,7 @@ def main() -> None:
         "summary": summary,
         "risk": risk,
         "stress": stress(bts),
+        "subperiods": subperiods(bts),
         "robustness": robust,
         "multiple_testing": multiple_testing(bts, summary, robust, cfg),
     }

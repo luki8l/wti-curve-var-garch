@@ -1,0 +1,85 @@
+\documentclass[9pt,a4paper]{extarticle}
+\usepackage[a4paper,left=1.5cm,right=1.5cm,top=1.3cm,bottom=1.3cm]{geometry}
+\input{preamble.tex}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist{nosep,leftmargin=1.0em,label=\textcolor{accent}{\textbullet}}
+\newcommand{\head}[1]{\par\vspace{5pt}{\sffamily\bfseries\small\color{accent}#1}\par\vspace{1pt}{\color{rulegrey}\hrule}\vspace{3pt}}
+
+\begin{document}
+
+\noindent\colorbox{accent}{\begin{minipage}{\dimexpr\linewidth-2\fboxsep}
+\vspace{4pt}
+{\sffamily\bfseries\Large\color{white} WTI Curve Carry, volatility-targeted}\hfill{\sffamily\small\color{white} Factsheet}\\[2pt]
+{\sffamily\small\color{white} \ProjectTitle: \ProjectSubtitle{} \textbullet{} \TeamName}
+\vspace{3pt}
+\end{minipage}}
+
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.35\linewidth}
+\head{Strategy}
+\textbf{Objective:} earn the roll yield of WTI crude oil futures with a constant ex-ante risk budget.
+\textbf{Edge:} the futures curve reflects inventories. Backwardation (scarce stocks) pays the holder of a long position as it rolls; contango (abundant stocks) charges it. The strategy takes the side that earns the roll.
+
+\head{Universe and rules}
+\begin{itemize}
+\item NYMEX WTI futures (CL), second contract, rolled at each front-month expiry; never held into delivery.
+\item Signal: slope $6\ln(\mathrm{C2}/\mathrm{C4})$. Long if positive (backwardation), short if negative (contango).
+\item Sizing: target \NTargetVol{} annualised volatility with a one-day EGARCH(1,1)-$t$ forecast; cap \NMaxLev$\times$ capital.
+\item Rebalancing: weekly at the last close of the week, executed at the next settlement.
+\item Costs: 1 tick slippage + 0.0025 USD/bbl fees per side, rolls on both legs.
+\item Collateral in 3-month T-bills. No other leverage, no options.
+\end{itemize}
+
+\head{Benchmark and sample}
+\begin{itemize}
+\item Benchmark: long 1$\times$ the same rolled contract, same costs.
+\item Design 1985--2009; strategy chosen on validation 1996--2009.
+\item \textbf{Out-of-sample: 01/2010--04/2024}, configuration frozen beforehand (commit \texttt{\NFreezeCommit}). All figures on this page are out-of-sample.
+\item Data: EIA (NYMEX settlements, weekly stocks), FRED (T-bills). EIA stopped publishing futures prices after 5 April 2024.
+\end{itemize}
+
+\head{Statistical caveats}
+\begin{itemize}
+\item Sharpe ratio \NOosSharpeMain, 90\% bootstrap interval [\NBootLo, \NBootHi].
+\item Gain over the benchmark not significant (difference \NBootDiff, interval [\NBootDiffLo, \NBootDiffHi]).
+\item Positive in 2010--14 (\NSubOne), 2015--19 (\NSubTwo), 2020--24 (\NSubThree) and in all \NRobN{} robustness variants (\NRobMin{} to \NRobMax).
+\end{itemize}
+
+\head{Key risks}
+\begin{itemize}
+\item Price rallies while the curve is in contango (losses in 2009, 2016).
+\item Most excess return came from contango crashes (2014--16: \NStressOpec; Jan--Apr 2020: \NStressCovid).
+\item Leverage up to \NMaxLev$\times$ in calm markets; weekly rebalancing leaves gap risk.
+\end{itemize}
+
+\head{Implementation}
+\begin{itemize}
+\item WTI futures traded 983{,}000 contracts a day on average in 2024 (CME Group). 100 million USD at 2$\times$ is about 0.3\% of that volume.
+\item Execution with trade-at-settlement orders; turnover \NOosTurnMain$\times$ capital p.a., mostly rolls; cost drag \NOosCostMain{} p.a.
+\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.62\linewidth}
+\head{Cumulative total return, out-of-sample}
+\includegraphics[width=\linewidth]{figures/fs_cumulative.pdf}
+
+\head{Risk and performance, 01/2010--04/2024}
+{\small\setlength{\tabcolsep}{6pt}\centering\input{tables/fs_metrics.tex}\par}
+
+{\scriptsize\color{muted} After trading costs. Sharpe, volatility, VaR, ES: daily excess returns over T-bills. CAGR, drawdown: total returns incl.\ T-bill interest. Beta, alpha: regression on benchmark excess returns. EGARCH-$t$ 99\% VaR breaches: \NVarHitMain{} (Kupiec $p$ \NVarKupMain).}
+
+\head{Calendar-year total return (2024: January--April)}
+\includegraphics[width=\linewidth]{figures/fs_annual.pdf}
+
+\head{Monthly total return of the strategy, \%}
+\includegraphics[width=\linewidth]{figures/fs_heatmap.pdf}
+\end{minipage}
+
+\vfill
+\noindent{\color{rulegrey}\hrule}
+\vspace{3pt}
+{\scriptsize\color{muted}\textbf{Disclaimer.} Educational project for the Econometrics course of the MSc Innovative Finance, University of Liechtenstein. Not investment advice and not an offer of any financial product. Results are a historical simulation: they assume execution at daily settlement prices, the stated costs and no market impact, and they depend on modelling choices described in the report. Futures trading with leverage can lose more than the capital committed. Past and simulated performance are no guide to future results.}
+
+\end{document}

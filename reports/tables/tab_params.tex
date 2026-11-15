@@ -1,0 +1,15 @@
+\begin{tabular}{@{}p{0.2\textwidth}p{0.76\textwidth}@{}}
+\toprule
+Item & Setting \\
+\midrule
+Instrument & NYMEX WTI futures (CL), 2nd nearby, rolled on front-month expiry \\
+Signal & sign of annualised log slope ln(C2/C4), +1 backwardation, $-$1 contango \\
+Sizing & target volatility 35\%, EGARCH(1,1)-$t$ 1-day forecast, cap 2$\times$ capital \\
+Rebalancing & weekly, last trading day of the week; executed at next settlement \\
+Costs & 1 tick (0.01 USD/bbl) slippage + 0.0025 USD/bbl fees per side; rolls charged both legs \\
+Volatility model & EGARCH-t, expanding window, refit every 21 trading days \\
+VAR & VAR(4) in (inventory, slope, return), expanding window, refit weekly \\
+Inventory input & weekly log change minus 5-year same-week mean; usable 6 days after week end \\
+Samples & design 1985--2009 (validation 1996--2009); out-of-sample 2010-01--2024-04 \\
+\bottomrule
+\end{tabular}
