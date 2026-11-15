@@ -8,10 +8,12 @@ so the prose cannot drift from the code output.
 
 from __future__ import annotations
 
+import os
 import pickle
 
 import matplotlib
 
+os.environ.setdefault("SOURCE_DATE_EPOCH", "0")  # byte-identical PDFs on every rebuild
 matplotlib.use("Agg")
 import matplotlib.dates as mdates  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
