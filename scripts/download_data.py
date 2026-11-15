@@ -36,7 +36,12 @@ SOURCES = [
     ("eia_RCLC3d.xls", EIA.format("RCLC3d"), True, "NYMEX WTI futures, contract 3, daily settle (USD/bbl)"),
     ("eia_RCLC4d.xls", EIA.format("RCLC4d"), True, "NYMEX WTI futures, contract 4, daily settle (USD/bbl)"),
     ("eia_WCESTUS1w.xls", EIA.format("WCESTUS1w"), True, "US crude oil ending stocks excl. SPR, weekly (kbbl)"),
-    ("eia_cushing_stocks_w.xls", EIA.format("W_EPC0_SAX_YCUOK_MBBLw"), False, "Cushing crude oil ending stocks excl. SPR, weekly (kbbl)"),
+    (
+        "eia_cushing_stocks_w.xls",
+        EIA.format("W_EPC0_SAX_YCUOK_MBBLw"),
+        False,
+        "Cushing crude oil ending stocks excl. SPR, weekly (kbbl)",
+    ),
     ("eia_RWTCd.xls", EIA.format("RWTCd"), False, "WTI spot price, Cushing, daily (USD/bbl)"),
     ("fred_DTB3.csv", FRED.format("DTB3"), True, "3-month T-bill, secondary market, daily (% p.a.)"),
     ("fred_OVXCLS.csv", FRED.format("OVXCLS"), False, "CBOE crude oil ETF volatility index, daily"),
@@ -44,8 +49,7 @@ SOURCES = [
 
 HEADERS = {
     "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
     ),
     "Accept": "text/csv,application/vnd.ms-excel,application/octet-stream,*/*",
     "Accept-Language": "en-US,en;q=0.9",

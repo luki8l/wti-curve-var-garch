@@ -1,0 +1,49 @@
+# All choices are fixed on the in-sample period (1986-2009) and frozen before the
+# out-of-sample evaluation. Comments state how each value was chosen.
+
+sample:
+  in_sample_end: "2009-12-31"   # design period: specification search and validation
+  oos_start: "2010-01-01"       # evaluated once with the frozen configuration
+  end: "2024-04-05"             # last NYMEX settlement published by EIA
+
+futures:
+  hold: 2                       # 2nd nearby: avoids expiry-month squeezes (April 2020)
+  slope_near: 2                 # roll yield from contracts 2 and 4 (front contract
+  slope_far: 4                  # is distorted around expiry and was negative in 2020)
+
+inventory:
+  seasonal_years: 5             # seasonal mean of weekly changes over the 5 prior years
+  release_lag_days: 6           # week ending Friday is used from the following Thursday
+
+garch:
+  spec: "EGARCH-t"              # lowest BIC among 5 candidates on 1986-2009 daily returns
+  start: "1995-01-02"           # first forecast after 10 years of data
+  refit_every: 21               # re-estimate monthly, filter daily in between
+
+var:
+  variables: ["inv", "slope", "r"]   # Cholesky order: published stocks -> curve -> return
+  lags: 4                       # smallest order with white residuals in every equation (1987-2009);
+                                # BIC picks 1 but leaves the monthly roll cycle in the slope residuals
+  start: "1996-01-05"           # first forecast after ~8 years of weekly data
+  window: null                  # expanding
+
+sizing:
+  target_vol: 0.35              # benchmark realised volatility 1986-2009 (37%), rounded
+  max_leverage: 2.0             # notional cap, multiple of capital
+
+execution:
+  lag_days: 1                   # trade at the settlement of the next trading day
+  slippage_ticks: 1.0           # per side, 0.01 USD/bbl
+  commission_per_bbl: 0.0025    # 2.50 USD per 1,000 bbl contract and side
+
+periods:
+  validation: ["1996-01-01", "2009-12-31"]
+  oos: ["2010-01-01", "2024-04-05"]
+
+selection:
+  # Candidates: {always long, VAR-forecast sign, curve-slope sign} x {1x, volatility target}.
+  # Decided on the 1996-2009 validation period, before the first out-of-sample run.
+  # The two carry variants led (Sharpe 0.74 at 1x, 0.70 vol-targeted, positive in both
+  # halves); the gap is far below one standard error (0.29). The vol-targeted version is
+  # chosen because it fixes the ex-ante risk budget on which the VaR/ES limits operate.
+  main: "carry_vol"
