@@ -85,4 +85,4 @@ tests/                   unit tests, including look-ahead checks
 
 ## Team
 
-[Team name]: [Member 1], [Member 2], [Member 3], [Member 4]
+[Team name]: Lukas Lobnig, Adrian Rupp, Noemi Pirrello
